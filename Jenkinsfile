@@ -12,7 +12,7 @@ pipeline {
             steps{
                 script{
                     def mvnHome = tool name: 'maven', type: 'maven'
-                    withSonarQubeEnv('sonar-image'){
+                    withSonarQubeEnv('sonar'){
                         sh "${mvnHome}/bin/mvn sonar:sonar"
                     }
                 }
