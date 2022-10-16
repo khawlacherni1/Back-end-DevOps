@@ -47,12 +47,12 @@ public class FactureServiceImpl implements IFactureService {
 	 * calculer les montants remise et le montant total d'un détail facture
 	 * ainsi que les montants d'une facture
 	 */
-	private Facture addDetailsFacture(Facture f, Set<DetailFacture> detailsFacture) {
+	private Facture addDetailsFacture(Facture f, Set<DetailFacture> detailsFacture) throws Exception {
 		float montantFacture = 0;
 		float montantRemise = 0;
 		for (DetailFacture detail : detailsFacture) {
 			//Récuperer le produit 
-			Produit produit = produitRepository.findById(detail.getProduit().getIdProduit()).get();
+			Produit produit = produitRepository.findById(detail.getProduit().getIdProduit()).orElseThrow(()-> new Exception("No product found"));
 			//Calculer le montant total pour chaque détail Facture
 			float prixTotalDetail = detail.getQteCommandee() * produit.getPrix();
 			//Calculer le montant remise pour chaque détail Facture
@@ -91,15 +91,15 @@ public class FactureServiceImpl implements IFactureService {
 	}
 
 	@Override
-	public List<Facture> getFacturesByFournisseur(Long idFournisseur) {
-		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
-		return (List<Facture>) fournisseur.getFactures();
+	public Set<Facture> getFacturesByFournisseur(Long idFournisseur) {
+		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElseThrow(()->new RuntimeException("No supplier found"));
+		return fournisseur.getFactures();
 	}
 
 	@Override
 	public void assignOperateurToFacture(Long idOperateur, Long idFacture) {
-		Facture facture = factureRepository.findById(idFacture).orElse(null);
-		Operateur operateur = operateurRepository.findById(idOperateur).orElse(null);
+		Facture facture = factureRepository.findById(idFacture).orElseThrow(()-> new RuntimeException("No facture found"));
+		Operateur operateur = operateurRepository.findById(idOperateur).orElseThrow(()-> new RuntimeException("No operator found"));
 		operateur.getFactures().add(facture);
 		operateurRepository.save(operateur);
 	}

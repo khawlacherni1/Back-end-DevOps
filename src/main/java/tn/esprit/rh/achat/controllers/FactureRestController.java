@@ -9,6 +9,7 @@ import tn.esprit.rh.achat.services.IFactureService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -57,7 +58,7 @@ public class FactureRestController {
     // http://localhost:8089/SpringMVC/facture/getFactureByFournisseur/{fournisseur-id}
     @GetMapping("/getFactureByFournisseur/{fournisseur-id}")
     @ResponseBody
-    public List<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
+    public Set<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
         return factureService.getFacturesByFournisseur(fournisseurId);
     }
 
