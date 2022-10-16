@@ -12,7 +12,7 @@ pipeline {
             steps{
                 script{
                     def mvnHome = tool name: 'maven', type: 'maven'
-                    withSonarQubeEnv('sonar'){
+                    withSonarQubeEnv('sonar2'){
                         sh "${mvnHome}/bin/mvn sonar:sonar"
                     }
                 }
@@ -48,5 +48,18 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                 }
             }
         }
+        stage('Build And Deploy Docker Image'){
+                    steps{
+                        script{
+                            echo "deploying the application"
+                            withCredentials([usernamePassword(credentialsId:'nexus-docker-repo',usernameVariable:'USER',passwordVariable:'PWD')]) {
+                                sh "echo $PWD | docker login -u $USER --password-stdin localhost:8083"
+                                sh "docker build -t localhost:8083/spring-app:1.0 ."
+                                sh "docker push localhost:8083/spring-app:1.0"
+
+                        }
+                    }
+                }
+            }
     }
 }
