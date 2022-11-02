@@ -14,7 +14,7 @@ pipeline {
                     jacoco()
                     def mvnHome = tool name: 'maven', type: 'maven'
                     withSonarQubeEnv('sonar2'){
-                        sh "${mvnHome}/bin/mvn sonar:sonar"
+                        sh "${mvnHome}/bin/mvn verify sonar:sonar"
                     }
                 }
             }
