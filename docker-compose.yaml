@@ -1,0 +1,27 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_USER: 'user'
+      MYSQL_ROOT_PASSWORD: 'example'
+    restart: unless-stopped
+    volumes:
+      - my-db:/var/lib/mysql
+    ports:
+      - '3306:3306'
+  frontend:
+    container_name: frontend
+    image: localhost:8083/angular-app
+    ports:
+      - '4200:4200'
+  backend:
+    container_name: backend
+    image: localhost:8083/spring-app
+    ports:
+      - '8085:8080'
+    depends_on:
+      - mysql
+volumes:
+  my-db:
+    driver: local
