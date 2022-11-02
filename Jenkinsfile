@@ -11,6 +11,7 @@ pipeline {
         stage('Sonarqube Analysis'){
             steps{
                 script{
+                    jacoco()
                     def mvnHome = tool name: 'maven', type: 'maven'
                     withSonarQubeEnv('sonar2'){
                         sh "${mvnHome}/bin/mvn sonar:sonar"
