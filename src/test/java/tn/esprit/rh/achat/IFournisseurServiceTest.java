@@ -68,7 +68,7 @@ class IFournisseurServiceTest {
         fournisseurServiceImp.deleteFournisseur(3L);
         Mockito.verify(fournisseurRepository, Mockito.times(1)).deleteById(3L);
     }
-    @Test
+   /* @Test
     @Order(4)
     void updateFournisseur() {
         Mockito.when(fournisseurRepository.save(fournisseur)).thenReturn(fournisseur);
@@ -77,7 +77,7 @@ class IFournisseurServiceTest {
         f =fournisseurServiceImp.updateFournisseur(f);
         Fournisseur updatedValue = fournisseurServiceImp.retrieveFournisseur(f.getIdFournisseur());
         assertNotEquals(updatedValue,fournisseur);
-    }
+    }*/
 
 
 //    @Test
