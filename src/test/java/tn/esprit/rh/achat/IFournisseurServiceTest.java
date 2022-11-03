@@ -12,18 +12,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import tn.esprit.rh.achat.entities.CategorieFournisseur;
-import tn.esprit.rh.achat.entities.Fournisseur;
-
-import tn.esprit.rh.achat.entities.SecteurActivite;
+import tn.esprit.rh.achat.entities.*;
+import tn.esprit.rh.achat.repositories.DetailFournisseurRepository;
 import tn.esprit.rh.achat.repositories.FournisseurRepository;
-import tn.esprit.rh.achat.services.FournisseurServiceImpl;
+import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
