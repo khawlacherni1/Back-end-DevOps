@@ -71,6 +71,11 @@ class IFournisseurServiceTest {
     @Test
     @Order(4)
     void updateFournisseur() {
+        Mockito.when(fournisseurRepository.save(fournisseur)).thenReturn(fournisseur);
+        Fournisseur f = fournisseurServiceImp.addFournisseur(fournisseur);
+        f.setCode("toutou");
+        Fournisseur updatedValue = fournisseurServiceImp.updateFournisseur(f);
+        assertNotEquals(updatedValue,fournisseur);
     }
 
 
