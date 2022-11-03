@@ -63,7 +63,7 @@ class FactureServiceImplTest {
     void retrieveAllFactures(){
         Mockito.when(factureRepository.findAll()).thenReturn(listFacture);
         List<Facture> listFacture1 = factureServiceImp.retrieveAllFactures();
-        assertTrue(listFacture1.size()>=0);
+        assertTrue(listFacture1.size()>0);
     }
     @Test
     @Order(3)
