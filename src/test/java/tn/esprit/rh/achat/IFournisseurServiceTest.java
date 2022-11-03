@@ -12,18 +12,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import tn.esprit.rh.achat.entities.*;
-import tn.esprit.rh.achat.repositories.DetailFournisseurRepository;
+import tn.esprit.rh.achat.entities.CategorieFournisseur;
+import tn.esprit.rh.achat.entities.Fournisseur;
+
+import tn.esprit.rh.achat.entities.SecteurActivite;
 import tn.esprit.rh.achat.repositories.FournisseurRepository;
-import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
+import tn.esprit.rh.achat.services.FournisseurServiceImpl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -33,9 +33,7 @@ class IFournisseurServiceTest {
     @InjectMocks
     FournisseurServiceImpl fournisseurServiceImp;
 
-    private final FournisseurServiceImpl fourService = mock(FournisseurServiceImpl.class);
     Fournisseur fournisseur = new Fournisseur("code", "libelle", CategorieFournisseur.ORDINAIRE);
-    DetailFournisseur df = new DetailFournisseur("aziz@email", new Date(), "bardo", "ADC123");
     List<Fournisseur> fournisseurList = new ArrayList<Fournisseur>(){
         {
             add(new Fournisseur("code1", "libelle1", CategorieFournisseur.ORDINAIRE));
@@ -70,24 +68,31 @@ class IFournisseurServiceTest {
         fournisseurServiceImp.deleteFournisseur(3L);
         Mockito.verify(fournisseurRepository, Mockito.times(1)).deleteById(3L);
     }
-    /*@Test
+   /* @Test
     @Order(4)
     void updateFournisseur() {
-        Mockito.when(fournisseurRepository.save(fournisseur)).then(invocationOnMock -> {
-            Fournisseur savedFournisseur = invocationOnMock.getArgument(0);
-            savedFournisseur.setDetailFournisseur(df);
-            return savedFournisseur;
-        });
-        Fournisseur f = fournisseurServiceImp.updateFournisseur(fournisseur);
-        assertNotNull(f.getDetailFournisseur());
+        Mockito.when(fournisseurRepository.save(fournisseur)).thenReturn(fournisseur);
+        Fournisseur f = fournisseurServiceImp.addFournisseur(fournisseur);
+        f.setCode("toutou");
+        f =fournisseurServiceImp.updateFournisseur(f);
+        Fournisseur updatedValue = fournisseurServiceImp.retrieveFournisseur(f.getIdFournisseur());
+        assertNotEquals(updatedValue,fournisseur);
     }*/
 
 
-    @Test
-    @Order(4)
-    void assignSecteurActiviteToFournisseur() {
-        Mockito.doNothing().when(fourService).assignSecteurActiviteToFournisseur(Mockito.anyLong(), Mockito.anyLong());
-        fourService.assignSecteurActiviteToFournisseur(3L, 5L);
-        Mockito.verify(fourService, Mockito.times(1)).assignSecteurActiviteToFournisseur(3L, 5L);
-    }
+//    @Test
+//    @Order(6)
+//    void updateFournisseur() {
+//
+//    }
+
+//    @Test
+//    @Order(4)
+//    void assignSecteurActiviteToFournisseur() {
+//        SecteurActivite sa = new SecteurActivite("aa","bb");
+//        SecteurActivite saAdded = iSecteurActiviteService.addSecteurActivite(sa);
+//        fournisseurService.assignSecteurActiviteToFournisseur(saAdded.getIdSecteurActivite(),1L);
+//        assertNotNull(fournisseurService.retrieveFournisseur(1L).getSecteurActivites());
+//        iSecteurActiviteService.deleteSecteurActivite(saAdded.getIdSecteurActivite());
+//    }
 }
