@@ -31,4 +31,7 @@ public class CategorieProduit implements Serializable {
 	@OneToMany(mappedBy = "categorieProduit")
 	@JsonIgnore
 	private Set<Produit> produits;
+
+	public CategorieProduit(String s, String ahmed) {
+	}
 }
