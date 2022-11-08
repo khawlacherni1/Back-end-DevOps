@@ -7,15 +7,15 @@ pipeline {
             }
         }
         stage('UNIT Testing'){
-                    steps{
-                        sh 'mvn test'
-                    }
-                }
+            steps{
+                sh 'mvn test'
+            }
+        }
         stage('Integration testing'){
-                            steps{
-                                sh 'mvn verify -DskipUnitTests'
-                            }
-                        }
+            steps{
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
     }
 
 
