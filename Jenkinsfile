@@ -26,13 +26,13 @@ pipeline {
                     }
                 }
             }
-    stage('Maven-test'){
+    /*stage('Maven-test'){
                 steps{
                      script{
                         sh 'mvn test'
                             }
                         }
-                    }
+                    }*/
     stage('Compile-package'){
             steps{
                 script{
