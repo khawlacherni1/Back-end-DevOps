@@ -32,14 +32,14 @@ pipeline {
                         sh 'mvn test'
                             }
                         }
-                    }*/
+                    }
     stage('Compile-package'){
             steps{
                 script{
                     sh 'mvn package'
                 }
             }
-        }
+        }*/
     }
 
 
