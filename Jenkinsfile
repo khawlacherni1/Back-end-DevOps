@@ -6,7 +6,7 @@ pipeline {
                 git 'https://github.com/khawlacherni1/Back-end-DevOps.git'
             }
         }
-        stage('UNIT Testing'){
+        /*stage('UNIT Testing'){
             steps{
                 sh 'mvn test'
             }
@@ -16,7 +16,32 @@ pipeline {
                 sh 'mvn verify -DskipUnitTests'
             }
         }
-    }
+    }*/
+
+
+    stage('Maven-clean'){
+                steps{
+                    script{
+                        sh 'mvn clean'
+                    }
+                }
+            }
+    stage('Maven-test'){
+                steps{
+                     script{
+                        sh 'mvn test'
+                            }
+                        }
+                    }
+    stage('Compile-package'){
+            steps{
+                script{
+                    sh 'mvn package'
+                }
+            }
+        }
+
+
 
 
     /*stages{
