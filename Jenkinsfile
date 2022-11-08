@@ -19,13 +19,25 @@ pipeline {
     }*/
 
 
-    stage('Maven-clean'){
+    /*stage('Maven-clean'){
                 steps{
                     script{
                         sh 'mvn clean'
                     }
                 }
+            }*/
+
+    stage("Cleaning project") {
+                steps {
+                    sh "./mvnw clean"
+                }
             }
+    stage("Compiling project") {
+                steps {
+                    sh "./mvnw compile"
+                }
+            }
+
     /*stage('Maven-test'){
                 steps{
                      script{
