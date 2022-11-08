@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages{
+        stage('Git Checkout'){
+            steps{
+                git 'https://github.com/khawlacherni1/Back-end-DevOps.git'
+            }
+        }
+    }
+
+
+    /*stages{
         stage('Compile-package'){
             steps{
                 script{
@@ -63,5 +72,5 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                     }
                 }
             }
-    }
+    }*/
 }
