@@ -6,6 +6,11 @@ pipeline {
                 git 'https://github.com/khawlacherni1/Back-end-DevOps.git'
             }
         }
+        stage('UNIT Testing'){
+                    steps{
+                        sh 'mvn test'
+                    }
+                }
     }
 
 
