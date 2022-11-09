@@ -126,17 +126,17 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
 node {
     try {
         stage('Checkout') {
-            bat "https://github.com/khawlacherni1/Back-end-DevOps.git"
+            git "https://github.com/khawlacherni1/Back-end-DevOps.git"
         }
         stage ('Package Stage') {
-            bat './mvnw package'
+            sh './mvnw package'
         }
         stage('Test & Jacoco Static Analysis') {
             junit 'target/surefire-reports/**/*.xml'
             jacoco()
         }
         stage('Sonar Scanner Coverage') {
-            bat "./mvnw sonar:sonar -Dsonar.login=8cb278465c157b73163eafba59c4cdb4d080a4d5 -Dsonar.host.url=http://localhost:9000"
+            sh "./mvnw sonar:sonar -Dsonar.login=8cb278465c157b73163eafba59c4cdb4d080a4d5 -Dsonar.host.url=http://localhost:9000"
         }
         stage ('Publish to Nexus') {
             nexusPublisher nexusInstanceId: 'INSTANCE_IN_JENKINS_SETTINGS', nexusRepositoryId: 'pipeline', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'gift-shop-mono', groupId: 'com.online', packaging: 'war', version: '1']]]
