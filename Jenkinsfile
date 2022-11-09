@@ -1,7 +1,7 @@
-/*pipeline {
+pipeline {
     agent any
     stages{
-        stage('Git Checkout'){
+       /* stage('Git Checkout'){
             steps{
                 git 'https://github.com/khawlacherni1/Back-end-DevOps.git'
             }
@@ -123,8 +123,7 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
 }*/
 
 
-node {
-    try {
+
         stage('Checkout') {
             git "https://github.com/khawlacherni1/Back-end-DevOps.git"
         }
@@ -143,13 +142,13 @@ node {
         }
 
     }
-    catch (e) {
+    /*catch (e) {
         def to = "ID_TO_SEND_EMAIL"
         currentBuild.result = 'FAILURE'
         def subject = "Jenkins - Build FAILURE"
         def content = '${JELLY_SCRIPT,template="html"}'
         emailext(body: content, mimeType: 'text/html',
                 replyTo: '$DEFAULT_REPLYTO', subject: subject,
-                to: to)
+                to: to)*/
     }
 }
