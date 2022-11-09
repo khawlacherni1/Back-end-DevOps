@@ -1,11 +1,11 @@
-pipeline {
+/*pipeline {
     agent any
     stages{
         stage('Git Checkout'){
             steps{
                 git 'https://github.com/khawlacherni1/Back-end-DevOps.git'
             }
-        }
+        }*/
         /*stage('UNIT Testing'){
             steps{
                 sh 'mvn test'
@@ -27,7 +27,7 @@ pipeline {
                 }
             }*/
 
-    stage("Cleaning project") {
+    /*stage("Cleaning project") {
                 steps {
                     sh "./mvnw clean"
                 }
@@ -36,7 +36,7 @@ pipeline {
                 steps {
                     sh "./mvnw compile"
                 }
-            }
+            }*/
 
     /*stage('Maven-test'){
                 steps{
@@ -119,5 +119,37 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                     }
                 }
             }
-    }*/
+    }
+}*/
+
+
+node {
+    try {
+        stage('Checkout') {
+            bat "https://github.com/khawlacherni1/Back-end-DevOps.git"
+        }
+        stage ('Package Stage') {
+            bat './mvnw package'
+        }
+        stage('Test & Jacoco Static Analysis') {
+            junit 'target/surefire-reports/**/*.xml'
+            jacoco()
+        }
+        stage('Sonar Scanner Coverage') {
+            bat "./mvnw sonar:sonar -Dsonar.login=8cb278465c157b73163eafba59c4cdb4d080a4d5 -Dsonar.host.url=http://localhost:9000"
+        }
+        stage ('Publish to Nexus') {
+            nexusPublisher nexusInstanceId: 'INSTANCE_IN_JENKINS_SETTINGS', nexusRepositoryId: 'pipeline', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'gift-shop-mono', groupId: 'com.online', packaging: 'war', version: '1']]]
+        }
+
+    }
+    catch (e) {
+        def to = "ID_TO_SEND_EMAIL"
+        currentBuild.result = 'FAILURE'
+        def subject = "Jenkins - Build FAILURE"
+        def content = '${JELLY_SCRIPT,template="html"}'
+        emailext(body: content, mimeType: 'text/html',
+                replyTo: '$DEFAULT_REPLYTO', subject: subject,
+                to: to)
+    }
 }
