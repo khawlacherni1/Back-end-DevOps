@@ -131,6 +131,15 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                        }
                  }
         }
+
+        stage('Maven-clean'){
+                        steps{
+                            script{
+                                sh 'mvn clean'
+                            }
+                        }
+                    }
+
         stage ('Package Stage') {
             steps{
                  script{
