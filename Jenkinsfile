@@ -125,20 +125,40 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
 
 
         stage('Checkout') {
-            git "https://github.com/khawlacherni1/Back-end-DevOps.git"
+            steps{
+                 script{
+                       git "https://github.com/khawlacherni1/Back-end-DevOps.git"
+                       }
+                 }
         }
         stage ('Package Stage') {
-            sh './mvnw package'
+            steps{
+                 script{
+                 sh './mvnw package'
+                 }
+            }
         }
         stage('Test & Jacoco Static Analysis') {
-            junit 'target/surefire-reports/**/*.xml'
-            jacoco()
+            steps{
+                 script{
+                 junit 'target/surefire-reports/**/*.xml'
+                jacoco()
+                }
+                }
         }
         stage('Sonar Scanner Coverage') {
-            sh "./mvnw sonar:sonar -Dsonar.login=8cb278465c157b73163eafba59c4cdb4d080a4d5 -Dsonar.host.url=http://localhost:9000"
+            steps{
+                 script{
+                 sh "./mvnw sonar:sonar -Dsonar.login=8cb278465c157b73163eafba59c4cdb4d080a4d5 -Dsonar.host.url=http://localhost:9000"
+                    }
+                    }
         }
         stage ('Publish to Nexus') {
-            nexusPublisher nexusInstanceId: 'INSTANCE_IN_JENKINS_SETTINGS', nexusRepositoryId: 'pipeline', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'gift-shop-mono', groupId: 'com.online', packaging: 'war', version: '1']]]
+            steps{
+                 script{
+                 nexusPublisher nexusInstanceId: 'INSTANCE_IN_JENKINS_SETTINGS', nexusRepositoryId: 'pipeline', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'gift-shop-mono', groupId: 'com.online', packaging: 'war', version: '1']]]
+                    }
+                    }
         }
 
 
