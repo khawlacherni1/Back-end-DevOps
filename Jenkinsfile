@@ -154,10 +154,10 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                  }
             }
         }
-        stage('Test & Jacoco Static Analysis') {
+        /*stage('Test & Jacoco Static Analysis') {
             steps{
                  script{
-                 junit 'target/surefire-reports/**/*.xml'
+                 junit 'target/surefire-reports/**//**.xml'
                 jacoco()
                 }
                 }
@@ -175,7 +175,7 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
                  nexusPublisher nexusInstanceId: 'INSTANCE_IN_JENKINS_SETTINGS', nexusRepositoryId: 'pipeline', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'gift-shop-mono', groupId: 'com.online', packaging: 'war', version: '1']]]
                     }
                     }
-        }
+        }*/
 
 
     /*catch (e) {
