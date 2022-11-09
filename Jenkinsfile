@@ -134,7 +134,8 @@ Anas''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'anasbo7@hot
         stage ('Package Stage') {
             steps{
                  script{
-                 sh './mvnw package'
+                 /*sh './mvnw package'*/
+                 sh 'mvn package'
                  }
             }
         }
